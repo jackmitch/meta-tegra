@@ -1,8 +1,9 @@
 require tegra-binaries-${PV}.inc
 require tegra-shared-binaries.inc
 
-DEPENDS = "mesa"
-
+DEPENDS = " \
+	${@bb.utils.contains("DISTRO_FEATURES", "x11", "mesa", "", d)} \
+"
 inherit update-rc.d systemd
 
 do_configure() {

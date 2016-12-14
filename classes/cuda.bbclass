@@ -17,7 +17,10 @@ python __anonymous () {
 
   if cuda_support == "True":
 
-    d.setVar("PACKAGE_ARCH", "${SOC_FAMILY_PKGARCH}")
+    if d.getVar("SOC_FAMILY_PKGARCH}", True) == None:
+        d.setVar("SOC_FAMILY_PKGARCH", d.getVar("MACHINE_ARCH", True))
+
+    d.setVar("PACKAGE_ARCH", d.getVar("SOC_FAMILY_PKGARCH", True))
     d.appendVar("DEPENDS", "${CUDA_COMMON_DEPENDS}")
     d.appendVar("RDEPENDS_${PN}", "${CUDA_COMMON_RDEPENDS}")
     d.appendVar("EXTRA_OECMAKE", "${CUDA_COMMON_CMAKE}")

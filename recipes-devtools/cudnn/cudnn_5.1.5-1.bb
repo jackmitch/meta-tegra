@@ -28,6 +28,7 @@ do_compile() {
 do_install() {
     install -d ${D}${includedir}
     cp ${B}/usr/include/aarch64-linux-gnu/*.h ${D}${includedir}
+    ln -sr ${D}${includedir}/cudnn_v5.h ${D}${includedir}/cudnn.h
     install -d ${D}${libdir}
     cp -d ${B}/usr/lib/aarch64-linux-gnu/* ${D}${libdir}
     ln -s libcudnn.so.5.1.5 ${D}${libdir}/libcudnn.so
